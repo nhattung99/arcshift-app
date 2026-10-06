@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ArcShift | Cosmic Dark dApp</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;family=Inter:wght@400;500&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#4cd7f6",
+                      "on-tertiary-container": "#002f38",
+                      "on-primary-fixed-variant": "#004395",
+                      "error": "#ffb4ab",
+                      "on-secondary-container": "#c4abff",
+                      "on-tertiary-fixed": "#001f26",
+                      "surface-container": "#201f1f",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#313030",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-tertiary": "#003640",
+                      "on-surface": "#e5e2e1",
+                      "primary-fixed-dim": "#adc6ff",
+                      "tertiary-container": "#009eb9",
+                      "surface-container-highest": "#353534",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-container-low": "#1c1b1b",
+                      "on-surface-variant": "#c2c6d6",
+                      "on-primary": "#002e6a",
+                      "on-primary-container": "#00285d",
+                      "secondary": "#d0bcff",
+                      "on-secondary": "#3c0091",
+                      "surface": "#131313",
+                      "surface-bright": "#3a3939",
+                      "outline-variant": "#424754",
+                      "inverse-primary": "#005ac2",
+                      "surface-tint": "#adc6ff",
+                      "on-background": "#e5e2e1",
+                      "tertiary-fixed": "#acedff",
+                      "error-container": "#93000a",
+                      "on-primary-fixed": "#001a42",
+                      "secondary-fixed": "#e9ddff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "background": "#131313",
+                      "secondary-container": "#571bc1",
+                      "primary-fixed": "#d8e2ff",
+                      "tertiary": "#4cd7f6",
+                      "on-tertiary-fixed-variant": "#004e5c",
+                      "surface-dim": "#131313",
+                      "on-error-container": "#ffdad6",
+                      "outline": "#8c909f",
+                      "surface-variant": "#353534",
+                      "primary": "#adc6ff",
+                      "primary-container": "#4d8eff",
+                      "on-secondary-fixed": "#23005c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Sora"],
+                      "headline-lg-mobile": ["Sora"],
+                      "headline-lg": ["Sora"],
+                      "label-mono": ["Geist"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(19, 19, 19, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .nebula-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(76, 215, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(60px);
+        }
+        .active-tab-glow {
+            box-shadow: 0 0 15px 2px rgba(76, 215, 246, 0.4);
+        }
+        body {
+            background-color: #050505;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Ambient Background Effects -->
+<div class="nebula-glow top-[-200px] left-[-200px]"></div>
+<div class="nebula-glow bottom-[-200px] right-[-200px] opacity-50" style="background: radial-gradient(circle, rgba(173, 198, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/60 dark:bg-surface/60 backdrop-blur-xl border-b border-white/10">
+<nav class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-tertiary text-3xl group-hover:rotate-12 transition-transform">waves</span>
+<span class="text-headline-lg font-headline-lg font-bold text-tertiary dark:text-tertiary-fixed-dim tracking-tighter">ArcShift</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="glass-card px-4 py-2 rounded-full flex items-center gap-2 text-label-mono font-label-mono text-tertiary hover:bg-tertiary/10 transition-all active:scale-95" href="https://faucet.circle.com/" target="_blank">
+<span class="material-symbols-outlined text-sm">water_drop</span>
+                    Get Testnet Funds
+                </a>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-label-mono text-label-mono font-bold hover:shadow-[0_0_20px_rgba(173,198,255,0.4)] transition-all active:scale-95 flex items-center gap-2" id="wallet-connect">
+<span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+                    Connect Wallet
+                </button>
+</div>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center pt-32 pb-20 px-4">
+<!-- Hero Decorative Section -->
+<div class="text-center mb-12">
+<h1 class="font-display-lg text-display-lg mb-4 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">Liquid Efficiency</h1>
+<p class="text-on-surface-variant max-w-lg mx-auto opacity-80">Experience the future of decentralized finance with lightning fast transactions and cosmic-grade security.</p>
+</div>
+<!-- Terminal Card (Swap/Send/Bridge) -->
+<div class="glass-card w-full max-w-[480px] rounded-3xl overflow-hidden p-6 shadow-2xl">
+<!-- Tabs -->
+<div class="flex bg-surface-container-low p-1.5 rounded-2xl mb-8 relative">
+<div class="absolute h-[calc(100%-12px)] w-[calc(33.33%-4px)] bg-tertiary rounded-xl top-[6px] left-[6px] transition-all duration-300 active-tab-glow" id="tab-indicator"></div>
+<button class="relative z-10 flex-1 py-2 text-label-mono font-label-mono text-center transition-colors text-on-primary-container" id="tab-0" onclick="switchTab(0)">Swap</button>
+<button class="relative z-10 flex-1 py-2 text-label-mono font-label-mono text-center transition-colors text-on-surface-variant" id="tab-1" onclick="switchTab(1)">Send</button>
+<button class="relative z-10 flex-1 py-2 text-label-mono font-label-mono text-center transition-colors text-on-surface-variant" id="tab-2" onclick="switchTab(2)">Bridge</button>
+</div>
+<!-- Tab Content: Swap (Default) -->
+<div class="space-y-4" id="content-swap">
+<div class="space-y-1">
+<label class="text-label-mono text-xs text-on-surface-variant/60 ml-1">YOU PAY</label>
+<div class="bg-surface-container p-4 rounded-2xl border border-white/5 flex items-center justify-between group focus-within:border-tertiary transition-colors">
+<div>
+<input class="bg-transparent border-none focus:ring-0 text-2xl font-bold w-full text-on-surface placeholder:text-on-surface/20" placeholder="0.0" type="number"/>
+<p class="text-xs text-on-surface-variant mt-1">$0.00</p>
+</div>
+<button class="bg-surface-container-high px-3 py-1.5 rounded-xl flex items-center gap-2 border border-white/10 hover:bg-surface-bright transition-colors">
+<div class="w-6 h-6 rounded-full bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-tertiary" data-weight="fill">token</span>
+</div>
+<span class="font-bold">ETH</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex justify-center -my-6 relative z-10">
+<button class="glass-card w-10 h-10 rounded-xl flex items-center justify-center text-tertiary hover:rotate-180 transition-transform duration-500 border border-white/10">
+<span class="material-symbols-outlined">swap_vert</span>
+</button>
+</div>
+<div class="space-y-1">
+<label class="text-label-mono text-xs text-on-surface-variant/60 ml-1">YOU RECEIVE</label>
+<div class="bg-surface-container p-4 rounded-2xl border border-white/5 flex items-center justify-between group focus-within:border-tertiary transition-colors">
+<div>
+<input class="bg-transparent border-none focus:ring-0 text-2xl font-bold w-full text-on-surface placeholder:text-on-surface/20" placeholder="0.0" type="number"/>
+<p class="text-xs text-on-surface-variant mt-1">$0.00</p>
+</div>
+<button class="bg-surface-container-high px-3 py-1.5 rounded-xl flex items-center gap-2 border border-white/10 hover:bg-surface-bright transition-colors">
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-secondary" data-weight="fill">currency_bitcoin</span>
+</div>
+<span class="font-bold">USDC</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full bg-tertiary text-on-tertiary py-4 rounded-2xl font-bold text-headline-lg-mobile shadow-[0_0_30px_rgba(76,215,246,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
+                        Swap Assets
+                    </button>
+</div>
+<!-- Tx Logic Placeholders -->
+<div class="pt-4 space-y-2">
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>Price Impact</span>
+<span class="text-green-400">&lt; 0.01%</span>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>Network Fee</span>
+<span>~$0.42</span>
+</div>
+</div>
+</div>
+<!-- Other Tab Content (Hidden by default) -->
+<div class="hidden py-20 text-center space-y-4" id="content-other">
+<span class="material-symbols-outlined text-6xl text-on-surface-variant/20">construction</span>
+<p class="text-on-surface-variant">Module currently under cosmic construction.</p>
+</div>
+</div>
+<!-- Decorative Info Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-container-max w-full">
+<div class="glass-card p-6 rounded-3xl group">
+<span class="material-symbols-outlined text-tertiary mb-4 block group-hover:scale-110 transition-transform">bolt</span>
+<h3 class="font-bold mb-2">Instant Settlement</h3>
+<p class="text-sm text-on-surface-variant">Transactions are processed in sub-second blocks across the multi-chain mesh.</p>
+</div>
+<div class="glass-card p-6 rounded-3xl group">
+<span class="material-symbols-outlined text-tertiary mb-4 block group-hover:scale-110 transition-transform">shield_lock</span>
+<h3 class="font-bold mb-2">Secured by Arc</h3>
+<p class="text-sm text-on-surface-variant">Advanced zero-knowledge proofs ensuring your assets remain yours and yours only.</p>
+</div>
+<div class="glass-card p-6 rounded-3xl group">
+<span class="material-symbols-outlined text-tertiary mb-4 block group-hover:scale-110 transition-transform">auto_graph</span>
+<h3 class="font-bold mb-2">Deep Liquidity</h3>
+<p class="text-sm text-on-surface-variant">Aggregate liquidity across major protocols for the best possible exchange rates.</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 bg-transparent">
+<div class="flex flex-col items-center gap-2 mt-auto">
+<p class="font-body-md text-body-md text-on-surface/40">© 2024 ArcShift</p>
+<p class="font-body-md text-body-md text-on-surface/40">
+                Built by 
+                <a class="text-on-surface/60 hover:text-tertiary transition-colors duration-300" href="https://x.com/nhattung00" target="_blank">@nhattung00</a>
+</p>
+</div>
+</footer>
+<!-- Interactive Logic -->
+<script>
+        function switchTab(index) {
+            const indicator = document.getElementById('tab-indicator');
+            const swapContent = document.getElementById('content-swap');
+            const otherContent = document.getElementById('content-other');
+            const tabs = [document.getElementById('tab-0'), document.getElementById('tab-1'), document.getElementById('tab-2')];
+            
+            // Move indicator
+            const offset = (index * 33.33);
+            indicator.style.left = `calc(${offset}% + 6px)`;
+
+            // Content Visibility
+            if (index === 0) {
+                swapContent.classList.remove('hidden');
+                otherContent.classList.add('hidden');
+            } else {
+                swapContent.classList.add('hidden');
+                otherContent.classList.remove('hidden');
+            }
+
+            // Update tab styles
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('text-on-primary-container');
+                    tab.classList.remove('text-on-surface-variant');
+                } else {
+                    tab.classList.remove('text-on-primary-container');
+                    tab.classList.add('text-on-surface-variant');
+                }
+            });
+        }
+
+        // Simple wallet connect mock interaction
+        const connectBtn = document.getElementById('wallet-connect');
+        connectBtn.addEventListener('click', () => {
+            if (connectBtn.innerText.includes('Connect')) {
+                connectBtn.innerHTML = '<span class="material-symbols-outlined text-lg">check_circle</span> 0x8f...3a2';
+                connectBtn.classList.replace('bg-primary', 'bg-tertiary-container');
+            } else {
+                connectBtn.innerHTML = '<span class="material-symbols-outlined text-lg">account_balance_wallet</span> Connect Wallet';
+                connectBtn.classList.replace('bg-tertiary-container', 'bg-primary');
+            }
+        });
+
+        // Background parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.nebula-glow');
+            const x = (e.clientX / window.innerWidth) - 0.5;
+            const y = (e.clientY / window.innerHeight) - 0.5;
+            
+            glows.forEach((glow, i) => {
+                const factor = (i + 1) * 30;
+                glow.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+            });
+        });
+    </script>
+</body></html>
